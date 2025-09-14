@@ -6,7 +6,7 @@ import os
 
 app = FastAPI()
 
-summarizer = pipeline("summarization", model="t5-small")
+summarizer = pipeline("summarization", model="sshleifer/tiny-t5")
 
 API_KEY = os.getenv("SUMMARIZER_SECRET_KEY", "")
 
