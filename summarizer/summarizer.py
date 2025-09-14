@@ -6,7 +6,7 @@ import os
 
 app = FastAPI()
 
-summarizer = pipeline("summarization", model="sshleifer/tiny-t5")
+summarizer = pipeline("summarization", model="IrisWiris/email-summarizer")
 
 API_KEY = os.getenv("SUMMARIZER_SECRET_KEY", "")
 
