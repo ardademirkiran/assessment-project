@@ -1,6 +1,7 @@
 package com.proksi.assessment.service;
 
 import com.proksi.assessment.component.ApiUserDetails;
+import com.proksi.assessment.constant.MessageConstants;
 import com.proksi.assessment.entity.ApiUser;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -26,11 +27,11 @@ public class AuthenticationService implements AuthenticationManager {
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
         ApiUser targetUser = apiUserService.findByEmail(authentication.getName());
         if (targetUser == null) {
-            throw new BadCredentialsException("Bad credentials.");
+            throw new BadCredentialsException(MessageConstants.BAD_CREDENTIALS);
         }
 
         if (!passwordEncoder.matches(authentication.getCredentials().toString(), targetUser.getPassword())) {
-            throw new BadCredentialsException("Bad credentials.");
+            throw new BadCredentialsException(MessageConstants.BAD_CREDENTIALS);
         }
 
         UserDetails principal = new ApiUserDetails(targetUser);

@@ -1,5 +1,6 @@
 package com.proksi.assessment.service;
 
+import com.proksi.assessment.constant.MessageConstants;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
@@ -14,7 +15,6 @@ import javax.crypto.SecretKey;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.function.Function;
 
 @Service
 public class JwtUtilService {
@@ -50,7 +50,7 @@ public class JwtUtilService {
                     .parseSignedClaims(token)
                     .getPayload();
         } catch (Exception e) {
-            throw new SignatureException("Invalid JWT token");
+            throw new SignatureException(MessageConstants.INVALID_JWT);
         }
     }
 
