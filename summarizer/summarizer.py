@@ -2,10 +2,11 @@ from fastapi import FastAPI, Header, HTTPException
 from pydantic import BaseModel
 from transformers import pipeline
 import time
+import os
 
 app = FastAPI()
 
-summarizer = pipeline("summarization", model="t5-base")
+summarizer = pipeline("summarization", model="t5-small")
 
 API_KEY = os.getenv("SUMMARIZER_SECRET_KEY", "")
 
