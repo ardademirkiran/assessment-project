@@ -53,4 +53,8 @@ public class ApiUserDetails implements UserDetails {
     public Long getId() {
         return user.getId();
     }
+
+    public ApiUser getApiUser() {
+        return user;
+    }
 }

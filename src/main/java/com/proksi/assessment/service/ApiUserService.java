@@ -1,8 +1,10 @@
 package com.proksi.assessment.service;
 
 import com.proksi.assessment.component.ApiUserDetails;
+import com.proksi.assessment.constant.MessageConstants;
 import com.proksi.assessment.dto.responseDto.ApiUserSignUpResponseDto;
 import com.proksi.assessment.enums.ResponseStatus;
+import com.proksi.assessment.exception.EmailConflictException;
 import com.proksi.assessment.repository.ApiUserRepository;
 import com.proksi.assessment.enums.Role;
 import com.proksi.assessment.dto.requestdto.ApiUserSignUpRequestDto;
@@ -30,14 +32,15 @@ public class ApiUserService implements UserDetailsService {
     }
 
     public ApiUser findByEmail(String email) {
-        return apiUserRepository.findByEmail(email).orElseThrow();
+        return apiUserRepository.findByEmail(email).orElse(null);
     }
+
     @Transactional
     public ApiUserSignUpResponseDto createNewApiUser(ApiUserSignUpRequestDto requestDto) {
-        ApiUserSignUpResponseDto responseDto = new ApiUserSignUpResponseDto();
+        ApiUserSignUpResponseDto responseDto;
 
         if (!requestDto.getPassword().equals(requestDto.getPasswordConfirm())) {
-            responseDto.setStatus(ResponseStatus.FAILURE);
+            responseDto = new ApiUserSignUpResponseDto(ResponseStatus.FAILURE, MessageConstants.PASSWORDS_DO_NOT_MATCH);
             return responseDto;
         }
 
@@ -48,12 +51,12 @@ public class ApiUserService implements UserDetailsService {
             apiUser.setRole(Role.USER);
             apiUserRepository.save(apiUser);
 
+            responseDto = new ApiUserSignUpResponseDto(ResponseStatus.SUCCESS, MessageConstants.USER_CREATED_SUCCESSFULLY);
             responseDto.setId(apiUser.getId());
             responseDto.setEmail(requestDto.getEmail());
-            responseDto.setStatus(ResponseStatus.SUCCESS);
             return responseDto;
         } catch (DataIntegrityViolationException e) {
-            throw new DataIntegrityViolationException("Email is already in use");
+            throw new EmailConflictException(MessageConstants.EMAIL_ALREADY_IN_USE);
         }
     }
 
@@ -61,7 +64,7 @@ public class ApiUserService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Optional<ApiUser> targetUserOpt = apiUserRepository.findByEmail(username);
         if (targetUserOpt.isEmpty()) {
-            throw new UsernameNotFoundException("User not found");
+            throw new UsernameNotFoundException(MessageConstants.USER_NOT_FOUND);
         }
         ApiUser targetUser = targetUserOpt.get();
         return new ApiUserDetails(targetUser);

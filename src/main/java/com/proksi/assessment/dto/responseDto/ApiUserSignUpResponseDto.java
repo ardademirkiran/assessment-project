@@ -6,8 +6,10 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class ApiUserSignUpResponseDto {
+public class ApiUserSignUpResponseDto extends ResponseDto {
     private Long id;
     private String email;
-    private ResponseStatus status;
+    public ApiUserSignUpResponseDto(ResponseStatus responseStatus, String message) {
+        super(responseStatus, message);
+    }
 }

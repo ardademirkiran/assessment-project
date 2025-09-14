@@ -3,6 +3,8 @@ package com.proksi.assessment.controller;
 import com.proksi.assessment.dto.requestdto.ApiUserSignUpRequestDto;
 import com.proksi.assessment.dto.responseDto.ApiUserSignUpResponseDto;
 import com.proksi.assessment.service.ApiUserService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,6 +24,10 @@ public class ApiUserController {
         this.apiUserService = apiUserService;
     }
 
+    @Operation(
+            summary = "Sign Up",
+            description = "Creates a new user with provided information."
+    )
     @PostMapping("/sign-up")
     public ResponseEntity<?> signUp(@RequestBody ApiUserSignUpRequestDto apiUserSignUpRequestDto) {
         ApiUserSignUpResponseDto responseDto = apiUserService.createNewApiUser(apiUserSignUpRequestDto);
