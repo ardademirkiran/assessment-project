@@ -10,12 +10,10 @@ jobs:
     environment: koyeb-config
     steps:
       - uses: actions/checkout@v4
-      - name: Install Koyeb CLI
-        run: |
-          curl -sL https://get.koyeb.com | bash
-          echo "$HOME/.koyeb/bin" >> $GITHUB_PATH
       - name: Deploy Spring service
         run: |
+          curl -sL https://get.koyeb.com | bash
+          export PATH="$HOME/.koyeb/bin:$PATH"
           koyeb login --token ${{ secrets.KOYEB_API_TOKEN }}
           koyeb service redeploy reliable-melinde/assessment-project
 
@@ -24,11 +22,9 @@ jobs:
     environment: koyeb-config
     steps:
       - uses: actions/checkout@v4
-      - name: Install Koyeb CLI
-        run: |
-          curl -sL https://get.koyeb.com | bash
-          echo "$HOME/.koyeb/bin" >> $GITHUB_PATH
       - name: Deploy Summarizer service
         run: |
+          curl -sL https://get.koyeb.com | bash
+          export PATH="$HOME/.koyeb/bin:$PATH"
           koyeb login --token ${{ secrets.KOYEB_API_TOKEN }}
           koyeb service redeploy daily-danni/assessment-project
