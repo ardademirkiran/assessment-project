@@ -1,5 +1,6 @@
 package com.proksi.assessment.exception;
 
+import com.proksi.assessment.constant.MessageConstants;
 import com.proksi.assessment.dto.responseDto.Result;
 import com.proksi.assessment.enums.ResponseStatus;
 import org.springframework.http.HttpStatus;
@@ -42,7 +43,9 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler
     public ResponseEntity<?> handleException(Exception exc) {
-        Map<String, ?> responseMap = Map.of("status", ResponseStatus.FAILURE, "message", "An error occurred.");
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(responseMap);
+        Result result = new Result();
+        result.setStatus(ResponseStatus.FAILURE);
+        result.setResultMessage(MessageConstants.GENERIC_ERROR);
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(result);
     }
 }

@@ -13,4 +13,5 @@ public class MessageConstants {
     public static final String NOTE_IS_FOUND = "Note is found.";
     public static final String NOTE_NOT_FOUND = "Note not found.";
     public static final String NO_RESPONSE_FROM_MODEL = "Model did not respond.";
+    public static final String GENERIC_ERROR = "An error occurred.";
 }
