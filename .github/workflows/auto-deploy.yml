@@ -1,0 +1,35 @@
+name: Deploy Services To Koyeb
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy-spring:
+    runs-on: ubuntu-latest
+    environment: koyeb-config
+    steps:
+      - uses: actions/checkout@v4
+      - name: Deploy Spring service
+        uses: koyeb/koyeb-deploy-action@v1
+        with:
+          token: ${{ secrets.KOYEB_API_TOKEN }}
+          app-name: assessment-project
+          service-name: reliable-melinde
+          git-url: https://github.com/${{ github.repository }}
+          git-branch: main
+
+  deploy-summarizer:
+    runs-on: ubuntu-latest
+    environment: koyeb-config
+    steps:
+      - uses: actions/checkout@v4
+      - name: Deploy Summarizer service
+        uses: koyeb/koyeb-deploy-action@v1
+        with:
+          token: ${{ secrets.KOYEB_API_TOKEN }}
+          app-name: assessment-project
+          service-name: daily-danni
+          git-url: https://github.com/${{ github.repository }}
+          git-branch: main
