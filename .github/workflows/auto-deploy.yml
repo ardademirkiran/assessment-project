@@ -19,7 +19,7 @@ jobs:
         with:
           app-name: assessment-project
           service-name: reliable-melinde
-          git-url: https://github.com/${{ github.repository }}
+          git-url: github.com/${{ github.repository }}
           git-branch: main
 
   deploy-summarizer:
@@ -36,5 +36,5 @@ jobs:
         with:
           app-name: assessment-project
           service-name: daily-danni
-          git-url: https://github.com/${{ github.repository }}
+          git-url: github.com/${{ github.repository }}
           git-branch: main
