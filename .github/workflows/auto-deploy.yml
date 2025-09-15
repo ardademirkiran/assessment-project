@@ -12,8 +12,8 @@ jobs:
       - uses: actions/checkout@v4
       - name: Deploy Spring service
         run: |
-          curl -sL https://get.koyeb.com | bash
-          export PATH="$HOME/.koyeb/bin:$PATH"
+          curl -fsSL https://raw.githubusercontent.com/koyeb/koyeb-cli/master/install.sh | sh
+          export PATH=$HOME/.koyeb/bin:$PATH
           koyeb login --token ${{ secrets.KOYEB_API_TOKEN }}
           koyeb service redeploy reliable-melinde/assessment-project
 
@@ -24,7 +24,7 @@ jobs:
       - uses: actions/checkout@v4
       - name: Deploy Summarizer service
         run: |
-          curl -sL https://get.koyeb.com | bash
-          export PATH="$HOME/.koyeb/bin:$PATH"
+          curl -fsSL https://raw.githubusercontent.com/koyeb/koyeb-cli/master/install.sh | sh
+          export PATH=$HOME/.koyeb/bin:$PATH
           koyeb login --token ${{ secrets.KOYEB_API_TOKEN }}
           koyeb service redeploy daily-danni/assessment-project
