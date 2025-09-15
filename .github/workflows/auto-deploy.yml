@@ -13,8 +13,9 @@ jobs:
       - name: Deploy Spring service
         run: |
           curl -fsSL https://raw.githubusercontent.com/koyeb/koyeb-cli/master/install.sh | sh
-          export PATH=$HOME/.koyeb/bin:$PATH
-          koyeb login --token ${{ secrets.KOYEB_API_TOKEN }}
+          export PATH="$HOME/.koyeb/bin:$PATH"
+          mkdir -p ~/.koyeb
+          echo "api_token: ${{ secrets.KOYEB_API_TOKEN }}" > ~/.koyeb.yaml
           koyeb service redeploy reliable-melinde/assessment-project
 
   deploy-summarizer:
@@ -25,6 +26,7 @@ jobs:
       - name: Deploy Summarizer service
         run: |
           curl -fsSL https://raw.githubusercontent.com/koyeb/koyeb-cli/master/install.sh | sh
-          export PATH=$HOME/.koyeb/bin:$PATH
-          koyeb login --token ${{ secrets.KOYEB_API_TOKEN }}
+          export PATH="$HOME/.koyeb/bin:$PATH"
+          mkdir -p ~/.koyeb
+          echo "api_token: ${{ secrets.KOYEB_API_TOKEN }}" > ~/.koyeb.yaml
           koyeb service redeploy daily-danni/assessment-project
