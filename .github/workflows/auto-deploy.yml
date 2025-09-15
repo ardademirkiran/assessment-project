@@ -11,16 +11,13 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Install Koyeb CLI
-        uses: koyeb-community/koyeb-actions@v2
-        with:
-          api_token: ${{ secrets.KOYEB_API_TOKEN }}
+        run: |
+          curl -sL https://get.koyeb.com | bash
+          echo "$HOME/.koyeb/bin" >> $GITHUB_PATH
       - name: Deploy Spring service
-        uses: koyeb/action-git-deploy@v1
-        with:
-          app-name: assessment-project
-          service-name: reliable-melinde
-          git-url: github.com/${{ github.repository }}
-          git-branch: main
+        run: |
+          koyeb login --token ${{ secrets.KOYEB_API_TOKEN }}
+          koyeb service redeploy reliable-melinde/assessment-project
 
   deploy-summarizer:
     runs-on: ubuntu-latest
@@ -28,13 +25,10 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Install Koyeb CLI
-        uses: koyeb-community/koyeb-actions@v2
-        with:
-          api_token: ${{ secrets.KOYEB_API_TOKEN }}
+        run: |
+          curl -sL https://get.koyeb.com | bash
+          echo "$HOME/.koyeb/bin" >> $GITHUB_PATH
       - name: Deploy Summarizer service
-        uses: koyeb/action-git-deploy@v1
-        with:
-          app-name: assessment-project
-          service-name: daily-danni
-          git-url: github.com/${{ github.repository }}
-          git-branch: main
+        run: |
+          koyeb login --token ${{ secrets.KOYEB_API_TOKEN }}
+          koyeb service redeploy daily-danni/assessment-project
