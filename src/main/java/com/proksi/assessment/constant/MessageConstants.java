@@ -2,7 +2,7 @@ package com.proksi.assessment.constant;
 
 public class MessageConstants {
     public static final String PASSWORDS_DO_NOT_MATCH = "Passwords do not match";
-    public static final String USER_CREATED_SUCCESSFULLY = "Passwords do not match";
+    public static final String USER_CREATED_SUCCESSFULLY = "User is created successfully";
     public static final String EMAIL_ALREADY_IN_USE = "Email already in use";
     public static final String USER_NOT_FOUND = "User not found.";
     public static final String LOGIN_SUCCESSFUL = "Logged in successfully.";
